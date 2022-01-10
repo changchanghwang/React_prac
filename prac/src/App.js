@@ -1,21 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import BucketList from './BucketList';
+import './style.css';
+import styled from 'styled-components';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>황</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="id" className="App">
+      <div className="container">
+        <h1 className="title">내 버킷리스트</h1>
+        <hr className="line" />
+        <BucketList list={['영화관 가기', '매일 책읽기', '수영 배우기']} />
+      </div>
     </div>
   );
 }
