@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Text from './Text';
 
 function App() {
+  const circle = React.createRef(null);
+
+  const hoverEvent = (e) => {
+    circle.current.style.background = 'yellow';
+  };
+  const hoverEvent2 = (e) => {
+    circle.current.style.background = 'green';
+  };
+  React.useEffect(() => {
+    circle.current.addEventListener('mouseover', hoverEvent);
+    return () => {
+      circle.current.removeEventListener('mouseover', hoverEvent);
+    };
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: '100vw', height: '100vh', textAlign: 'center' }}>
+      <Text />
+      <div
+        style={{
+          margin: 'auto',
+          width: '250px',
+          height: '250px',
+          background: 'green',
+          borderRadius: '250px',
+        }}
+        ref={circle}
+      ></div>
     </div>
   );
 }
