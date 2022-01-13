@@ -1,47 +1,69 @@
+import React from 'react';
+// BucketList 컴포넌트를 import 해옵니다.
+// import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 import BucketList from './BucketList';
 import styled from 'styled-components';
-import React from 'react';
-import Nemo from './Nemo';
+import { Route, Switch } from 'react-router-dom';
+import Detail from './detail';
+import NotFound from './NotFound';
 
 function App() {
-  const text = React.createRef();
-  const L = ['영화관 가기', '매일 책읽기', '수영 배우기'];
-  const [list, setList] = React.useState(L);
-  const addBucket = () => {
-    const newBucket = text.current.value;
-    setList([...list, newBucket]);
+  const [list, setList] = React.useState([
+    '영화관 가기',
+    '매일 책읽기',
+    '수영 배우기',
+  ]);
+  const text = React.useRef(null);
+
+  const addBucketList = () => {
+    // 스프레드 문법! 기억하고 계신가요? :)
+    // 원본 배열 list에 새로운 요소를 추가해주었습니다.
+    setList([...list, text.current.value]);
   };
   return (
-    <AppWrap>
+    <div className="App">
       <Container>
         <Title>내 버킷리스트</Title>
         <Line />
-        <BucketList list={list} />
+        {/* 컴포넌트를 넣어줍니다. */}
+        {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+        <Switch>
+          <Route path="/" exact>
+            <BucketList list={list} />
+          </Route>
+          <Route exact path="/detail" component={Detail} />
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
       </Container>
-      <InputDiv>
-        <input ref={text} />
-        <PlusButton onClick={addBucket}>추가</PlusButton>
-      </InputDiv>
-    </AppWrap>
+      {/* 인풋박스와 추가하기 버튼을 넣어줬어요. */}
+      <Input>
+        <input type="text" ref={text} />
+        <button onClick={addBucketList}>추가하기</button>
+      </Input>
+    </div>
   );
 }
 
-const AppWrap = styled.div`
-  background-color: #eee;
-  height: 100vh;
-  width: 100vw;
-  flex-direction: column;
+const Input = styled.div`
+  max-width: 350px;
+  min-height: 10vh;
+  background-color: #fff;
+  padding: 16px;
+  margin: 20px auto;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 `;
 
 const Container = styled.div`
-  background-color: #fff;
-  width: 50vw;
   max-width: 350px;
-  margin: 20px auto;
-  height: 50vh;
+  min-height: 60vh;
+  background-color: #fff;
   padding: 16px;
-  border: 1px solid #ddd;
+  margin: 20px auto;
   border-radius: 5px;
+  border: 1px solid #ddd;
 `;
 
 const Title = styled.h1`
@@ -51,24 +73,7 @@ const Title = styled.h1`
 
 const Line = styled.hr`
   margin: 16px 0px;
-`;
-
-const InputDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  background-color: #fff;
-  width: 50vw;
-  max-width: 350px;
-  margin: auto;
-  height: 1.8vh;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-`;
-
-const PlusButton = styled.button`
-  width: 50px;
-  height: 30px;
+  border: 1px dotted #ddd;
 `;
 
 export default App;
