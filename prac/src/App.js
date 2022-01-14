@@ -6,19 +6,23 @@ import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 import Detail from './detail';
 import NotFound from './NotFound';
+import { useDispatch } from 'react-redux';
+import { createBucket } from './redux/modules/bucket';
 
 function App() {
-  const [list, setList] = React.useState([
-    '영화관 가기',
-    '매일 책읽기',
-    '수영 배우기',
-  ]);
+  //   const [list, setList] = React.useState([
+  //     '영화관 가기',
+  //     '매일 책읽기',
+  //     '수영 배우기',
+  //   ]);
   const text = React.useRef(null);
-
+  const dispatch = useDispatch();
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
-    setList([...list, text.current.value]);
+    // setList([...list, text.current.value]);
+
+    dispatch(createBucket(text.current.value));
   };
   return (
     <div className="App">
@@ -29,9 +33,9 @@ function App() {
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
         <Switch>
           <Route path="/" exact>
-            <BucketList list={list} />
+            <BucketList />
           </Route>
-          <Route exact path="/detail" component={Detail} />
+          <Route path="/detail/:index" component={Detail} />
           <Route>
             <NotFound />
           </Route>
