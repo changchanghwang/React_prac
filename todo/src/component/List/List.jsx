@@ -1,7 +1,7 @@
 import { Todos } from "../Todos";
 
 function List(props){
-  const {todos} = props;
+  const {todos,setTodos} = props;
 
   return(
     <>
@@ -10,7 +10,7 @@ function List(props){
         {todos
           .filter((todo) => !todo.isDone)
           .map((todo) => (
-            <Todos key={todo.id} />
+            <Todos todo={todo} setTodos={setTodos} key={todo.id}  />
           ))}
       </div>
       <div>
@@ -18,7 +18,7 @@ function List(props){
         {todos
           .filter((todo) => todo.isDone)
           .map((todo) => (
-            <Todos key={todo.id} />
+            <Todos todo={todo} setTodos={setTodos} key={todo.id} />
           ))}
       </div>
     </>

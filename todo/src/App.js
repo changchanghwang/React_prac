@@ -67,12 +67,16 @@ function App() {
                 </button>
                 <button
                   onClick={() =>
-                    setTodos((prev) =>
-                      prev.map((prev) => {
-                        if (prev.id === todo.id) prev.isDone = true;
+                    setTodos((prevs) => {
+                      const a = prevs.map((prev) => {
+                        if (prev.id === todo.id) {
+                          return { ...prev, isDone: true };
+                        }
                         return prev;
-                      })
-                    )
+                      });
+                      console.log(a);
+                      return a;
+                    })
                   }
                 >
                   완료
@@ -104,12 +108,14 @@ function App() {
                 </button>
                 <button
                   onClick={() =>
-                    setTodos((prev) =>
-                      prev.map((prev) => {
-                        if (prev.id === todo.id) prev.isDone = false;
+                    setTodos((prevs) => {
+                      return prevs.map((prev) => {
+                        if (prev.id === todo.id) {
+                          return { ...prev, isDone: false };
+                        }
                         return prev;
-                      })
-                    )
+                      });
+                    })
                   }
                 >
                   취소

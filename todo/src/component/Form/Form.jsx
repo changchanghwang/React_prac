@@ -22,3 +22,5 @@ function Form(props){
       </div>
   )
 }
+
+export {Form}

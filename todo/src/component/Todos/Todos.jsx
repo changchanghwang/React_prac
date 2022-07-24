@@ -19,15 +19,17 @@ function Todos(props){
         </button>
         <button
           onClick={() =>
-            setTodos((prev) =>
-              prev.map((prev) => {
-                if (prev.id === todo.id) prev.isDone = !prev.isDone;
+            setTodos((prevs) => {
+              return prevs.map((prev) => {
+                if (prev.id === todo.id) {
+                  return { ...prev, isDone: !prev.isDone };
+                }
                 return prev;
-              })
-            )
+              });
+            })
           }
         >
-          {todo.isDone ? '완료' : '취소'}
+          {todo.isDone ? '취소' : '완료'}
         </button>
       </div>
     </div>
